@@ -18,6 +18,7 @@ class ShapeText {
         this.scale = scale;
         this.range = range;
         this.canvas.addEventListener('mousemove', this.setMousePos.bind(this));
+        this.canvas.addEventListener('mouseout', this.mouseOut.bind(this));
         this.mouse = {
             x: 0,
             y: 0
@@ -30,9 +31,14 @@ class ShapeText {
         this.selection = [];
         this.font = font;
         this.getTextArea();
+        this.mouseOut = false;
         return this;
     }
+    mouseOut() {
+        this.mouseOut = true;
+    }
     setMousePos(e) {
+        this.mouseOut = false;
         var rect = this.canvas.getBoundingClientRect();
         this.mouse = {
             x: e.clientX - rect.left,
@@ -89,7 +95,7 @@ class ShapeText {
         for (let i = 0; i < this.selection.length; i++) {
             var pixel = this.selection[i];
             var distance = Math.hypot(this.mouse.x - pixel.x, this.mouse.y - pixel.y);
-            if (distance < this.radius + this.range) {
+            if (distance < this.radius + this.range && !this.mouseOut) {
                 //mouse in range
                 if (this.selection[i].radius < this.radius * this.scale) {
                     var newRadius = this.selection[i].radius + this.speed * this.deltaTime;
