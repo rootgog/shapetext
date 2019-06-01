@@ -33,9 +33,10 @@ class ShapeText {
         return this;
     }
     setMousePos(e) {
+        var rect = this.canvas.getBoundingClientRect();
         this.mouse = {
-            x: e.clientX,
-            y: e.clientY
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top
         }
     }
     getTextArea() {
