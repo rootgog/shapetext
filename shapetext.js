@@ -118,7 +118,6 @@ class ShapeText {
             this.ctx.arc(pixel.x, pixel.y, this.selection[i].radius, 0, 2 * Math.PI);
             this.ctx.fill();
         };
-
         requestAnimationFrame(() => this.draw());
     }
 }
